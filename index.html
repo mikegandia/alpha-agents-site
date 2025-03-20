@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Agents - AI Trading Team</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        :root {
+            --bg-dark: #080a1a;
+            --bg-card: #11142b;
+            --bg-input: #0c0e22;
+            --border-color: #1e2144;
+            --text-primary: #e2e4ff;
+            --text-secondary: #9597b9;
+            --accent-blue: #3a7bfd;
+            --accent-blue-hover: #2561e5;
+
+            /* Logo accent colors (used subtly) */
+            --orange-accent: #ff9d4d;
+            --purple-accent: #a64dff;
+            --pink-accent: #ff4d9d;
+
+            --shadow-color: rgba(0, 0, 30, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(58, 123, 253, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(58, 123, 253, 0.05) 0%, transparent 60%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 0;
+            z-index: 2;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-logo {
+            width: 35px;
+            height: 35px;
+            margin-right: 15px;
+        }
+
+        .brand-name {
+            font-weight: 600;
+            font-size: 1.4rem;
+            color: var(--text-primary);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 9rem 0 5rem;
+            position: relative;
+        }
+
+        .dots-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .headline {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.025em;
+            line-height: 1.2;
+        }
+
+        .headline span {
+            color: var(--accent-blue);
+        }
+
+        .subhead {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 650px;
+            margin: 0 auto 3.5rem;
+        }
+
+        /* Video Placeholder */
+        .video-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 1rem auto 3.5rem;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+            box-shadow: 0 20px 50px var(--shadow-color);
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 60px var(--shadow-color);
+        }
+
+        .video-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, transparent 70%, var(--orange-accent) 100%);
+            opacity: 0.15;
+            border-radius: 0 0 16px 0;
+            pointer-events: none;
+        }
+
+        .video-placeholder {
+            aspect-ratio: 16 / 9;
+            background-color: rgba(12, 14, 34, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+        }
+
+        .play-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), #2561e5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            z-index: 10;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px rgba(58, 123, 253, 0.5);
+        }
+
+        .play-btn::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-blue-hover));
+            opacity: 0.6;
+            filter: blur(10px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, #4a8aff, #1a53d1);
+        }
+
+        .play-btn i {
+            font-size: 30px;
+            color: white;
+            margin-left: 5px;
+        }
+
+        /* Call to Action Button */
+        .cta-btn {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, var(--accent-blue), #2561e5);
+            color: white;
+            border: none;
+            padding: 1.4rem 3rem;
+            border-radius: 10px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(58, 123, 253, 0.3);
+        }
+
+        .cta-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, transparent 50%, var(--purple-accent) 100%);
+            opacity: 0.2;
+            border-radius: 0 0 10px 0;
+            pointer-events: none;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(58, 123, 253, 0.4);
+        }
+
+        .cta-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .cta-btn small {
+            font-size: 0.8rem;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-top: 0.25rem;
+        }
+
+        /* Custom Triangle Logo */
+        .triangle-logo {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .triangle-logo svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Footer */
+        footer {
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.3s;
+            padding: 0 0.75rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .headline {
+                font-size: 3rem;
+            }
+
+            .subhead {
+                font-size: 1.125rem;
+            }
+
+            .video-container {
+                margin: 2rem auto;
+            }
+
+            .play-btn {
+                width: 60px;
+                height: 60px;
+            }
+
+            .play-btn i {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dots-bg"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="nav-brand">
+                    <div class="brand-logo">
+                        <img src="/images/icon128.png" alt="Alpha Agents Logo" width="35" height="35">
+                    </div>
+                    <span class="brand-name">Alpha Agents</span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 class="headline">
+                Alpha Agents: <span>Your AI Trading Team</span>
+            </h1>
+            <p class="subhead">
+                Harness the power of advanced AI agents to analyze charts, identify setups, and validate your trading
+                decisions with confidence.
+            </p>
+
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <img src="/api/placeholder/1600/900" alt="Trading Analysis Platform" class="video-img">
+                    <div class="play-btn">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+            </div>
+
+            <button class="cta-btn">
+                Access Alpha Agents Now
+                <small>Get Your 14 Day Free Trial</small>
+            </button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">© 2025 Alpha Agents</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
