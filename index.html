@@ -130,7 +130,7 @@
             font-size: 1.25rem;
             color: var(--text-secondary);
             max-width: 650px;
-            margin: 0 auto 3.5rem;
+            margin: 0 auto 2rem;
         }
 
         /* Video Placeholder */
@@ -313,6 +313,34 @@
             color: var(--text-primary);
         }
 
+        /* Add these styles to your existing CSS */
+        .video-thumbnail {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), #2561e5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(58, 123, 253, 0.5);
+        }
+
+        .play-button i {
+            font-size: 30px;
+            color: white;
+            margin-left: 5px;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .headline {
@@ -356,8 +384,8 @@
                 /* Smaller font */
             }
         }
-
     </style>
+
 </head>
 
 <body>
@@ -387,10 +415,19 @@
             </p>
 
             <div class="video-container">
-                <iframe
-                    src="https://www.loom.com/embed/aea3cabeb10d4af6b6f8a292350d92e7?sid=a4576261-6222-4193-893d-c42b0f7e801d"
-                    frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
-                    style="width: 100%; aspect-ratio: 16/9; border-radius: 16px;"></iframe>
+                <div class="video-thumbnail" onclick="loadVideo(this)">
+                    <img src="images/video-preview.gif" alt="Video Preview"
+                        style="width: 100%; aspect-ratio: 16/9; border-radius: 16px; object-fit: cover;">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="video-frame" style="display: none;">
+                    <iframe
+                        data-src="https://www.loom.com/embed/aea3cabeb10d4af6b6f8a292350d92e7?sid=a4576261-6222-4193-893d-c42b0f7e801d"
+                        frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
+                        style="width: 100%; aspect-ratio: 16/9; border-radius: 16px;"></iframe>
+                </div>
             </div>
 
             <button class="cta-btn">
@@ -411,6 +448,24 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        function loadVideo(element) {
+            const container = element.parentNode;
+            const thumbnailEl = container.querySelector('.video-thumbnail');
+            const frameEl = container.querySelector('.video-frame');
+            const iframe = frameEl.querySelector('iframe');
+
+            // Set the actual src from the data-src attribute
+            iframe.src = iframe.getAttribute('data-src');
+
+            // Hide thumbnail, show video
+            thumbnailEl.style.display = 'none';
+            frameEl.style.display = 'block';
+        }
+    </script>
+
+
 </body>
 
 </html>
