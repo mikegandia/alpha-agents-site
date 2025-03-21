@@ -96,7 +96,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 9rem 0 5rem;
+            padding: 5rem 0 5rem;
             position: relative;
         }
 
@@ -136,7 +136,7 @@
         /* Video Placeholder */
         .video-container {
             width: 100%;
-            max-width: 800px;
+            max-width: 960px;
             margin: 1rem auto 3.5rem;
             border-radius: 16px;
             overflow: hidden;
@@ -231,15 +231,24 @@
             background: linear-gradient(135deg, var(--accent-blue), #2561e5);
             color: white;
             border: none;
-            padding: 1.4rem 3rem;
-            border-radius: 10px;
-            font-size: 1.25rem;
+            padding: 1.75rem 3.75rem;
+            /* 25% larger padding */
+            border-radius: 12px;
+            font-size: 2rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 8px 30px rgba(58, 123, 253, 0.3);
+            box-shadow: 0 10px 38px rgba(58, 123, 253, 0.3);
+            /* Slightly larger shadow */
+        }
+
+        .cta-btn small {
+            font-size: 1.25rem;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-top: 0.3rem;
         }
 
         .cta-btn::after {
@@ -264,12 +273,6 @@
             transform: translateY(-1px);
         }
 
-        .cta-btn small {
-            font-size: 0.8rem;
-            font-weight: 400;
-            opacity: 0.9;
-            margin-top: 0.25rem;
-        }
 
         /* Custom Triangle Logo */
         .triangle-logo {
@@ -322,17 +325,38 @@
 
             .video-container {
                 margin: 2rem auto;
+                max-width: 90%;
+                /* Make video take up most of the screen width on mobile */
             }
 
-            .play-btn {
-                width: 60px;
-                height: 60px;
+            /* Mobile-specific button styling */
+            .cta-btn {
+                padding: 1.2rem 2rem;
+                /* Smaller padding */
+                font-size: 1.1rem;
+                /* Smaller font */
+                width: 90%;
+                /* Make button wider relative to screen */
+                max-width: 320px;
+                /* But with a maximum width */
             }
 
-            .play-btn i {
-                font-size: 24px;
+            .cta-btn small {
+                font-size: 0.75rem;
+                /* Slightly smaller subtext */
             }
         }
+
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .cta-btn {
+                padding: 1rem 1.5rem;
+                /* Even smaller padding */
+                font-size: 1rem;
+                /* Smaller font */
+            }
+        }
+
     </style>
 </head>
 
