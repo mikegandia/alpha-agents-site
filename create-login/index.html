@@ -635,6 +635,9 @@
             submitButton.innerHTML = '<div class="btn-top-line">Processing... <i class="fas fa-spinner fa-spin"></i></div>';
             submitButton.disabled = true;
 
+            const urlParams = new URLSearchParams(window.location.search);
+            const utmSource = urlParams.get('utm_source') || 'organic';
+
             // Send data to webhook
             fetch('https://hook.us2.make.com/jr2ahscyf4eqgo99pqr9lrt5udrjc1x5', {
                 method: 'POST',
@@ -646,6 +649,7 @@
                     email: emailValue,
                     password: passwordValue,
                     source: window.location.href,
+                    utm_source: utmSource,
                     timestamp: new Date().toISOString()
                 })
             })
