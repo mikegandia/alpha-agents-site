@@ -16,7 +16,7 @@
     <meta name="title" content="Alpha Agents - Your AI Trading Team">
     <meta name="description"
         content="Harness the power of advanced AI agents to analyze charts, identify setups, and validate your trading decisions with confidence.">
-  
+
     <!-- Favicon -->
     <link rel="icon" href="/images/favicon.ico">
     <link rel="apple-touch-icon" href="/images/favicon-aa.png">
@@ -441,6 +441,26 @@
             gap: 0.5rem;
         }
 
+        .success-message {
+            text-align: center;
+            padding: 1.5rem 0;
+        }
+
+        .success-message i {
+            font-size: 3rem;
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+
+        .success-message h3 {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .success-message p {
+            color: var(--text-secondary);
+        }
+
         .form-submit-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(58, 123, 253, 0.4);
@@ -533,8 +553,8 @@
 
 
             <div class="form-container">
-                <form id="signup-form" action="https://formsubmit.co/your-email-here@example.com" method="POST">
-                    <h3>Get Early Access</h3>
+                <form id="signup-form">
+                    <h3>Create Your Login</h3>
                     <div class="form-group">
                         <input type="text" name="name" placeholder="Your Name" required>
                     </div>
@@ -542,11 +562,19 @@
                         <input type="email" name="email" placeholder="Your Email" required
                             pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
                     </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="password" placeholder="Create Password" required
+                            minlength="8">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="confirm_password" id="confirm_password"
+                            placeholder="Confirm Password" required minlength="8">
+                    </div>
                     <button type="submit" class="form-submit-btn">
                         <div class="btn-top-line">
                             Access Your Free Trial Now <i class="fas fa-arrow-right"></i>
                         </div>
-                        <small>No Credit Card Required</small>
+                        <!-- <small>No Credit Card Required</small> -->
                     </button>
                 </form>
             </div>
@@ -567,27 +595,104 @@
     </footer>
 
     <script>
-        // Form submission and validation
+
         document.getElementById('signup-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const nameInput = this.querySelector('input[name="name"]');
             const emailInput = this.querySelector('input[type="email"]');
+            const passwordInput = this.querySelector('input[name="password"]');
+            const confirmPasswordInput = this.querySelector('input[name="confirm_password"]');
+
+            const nameValue = nameInput.value;
             const emailValue = emailInput.value;
+            const passwordValue = passwordInput.value;
+            const confirmPasswordValue = confirmPasswordInput.value;
 
             // Basic email validation
             const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
             if (!emailPattern.test(emailValue)) {
-                e.preventDefault();
                 emailInput.setCustomValidity('Please enter a valid email address');
                 emailInput.reportValidity();
+                return;
             } else {
                 emailInput.setCustomValidity('');
             }
+
+            // Password validation
+            if (passwordValue !== confirmPasswordValue) {
+                confirmPasswordInput.setCustomValidity('Passwords do not match');
+                confirmPasswordInput.reportValidity();
+                return;
+            } else {
+                confirmPasswordInput.setCustomValidity('');
+            }
+
+            // Show loading state
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.innerHTML = '<div class="btn-top-line">Processing... <i class="fas fa-spinner fa-spin"></i></div>';
+            submitButton.disabled = true;
+
+            // Send data to webhook
+            fetch('https://hook.us2.make.com/jr2ahscyf4eqgo99pqr9lrt5udrjc1x5', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    name: nameValue,
+                    email: emailValue,
+                    password: passwordValue,
+                    source: window.location.href,
+                    timestamp: new Date().toISOString()
+                })
+            })
+                .then(response => {
+                    if (response.ok) {
+                        // Success - show thank you message
+                        document.getElementById('signup-form').innerHTML = `
+                    <div class="success-message">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Thank You!</h3>
+                        <p>Your information has been submitted successfully. We'll be in touch soon!</p>
+                    </div>
+                `;
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Reset button and show error
+                    submitButton.innerHTML = originalButtonText;
+                    submitButton.disabled = false;
+                    alert('Something went wrong. Please try again later.');
+                });
         });
 
         // Clear custom validity when input changes
         document.querySelector('input[type="email"]').addEventListener('input', function () {
             this.setCustomValidity('');
         });
+
+        document.querySelector('input[name="confirm_password"]').addEventListener('input', function () {
+            this.setCustomValidity('');
+        });
+
+        // Add visual feedback for password match
+        document.querySelector('input[name="confirm_password"]').addEventListener('keyup', function () {
+            const password = document.querySelector('input[name="password"]').value;
+            const confirmPassword = this.value;
+
+            if (password === confirmPassword) {
+                this.style.borderColor = '#4CAF50';
+            } else {
+                this.style.borderColor = '';
+            }
+        });
+
     </script>
 
 </body>
