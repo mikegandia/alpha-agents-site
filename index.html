@@ -147,6 +147,8 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
+
+
         .video-container:hover {
             transform: translateY(-5px);
             box-shadow: 0 25px 60px var(--shadow-color);
@@ -325,6 +327,7 @@
             cursor: pointer;
         }
 
+        /* Animated Play Button */
         .play-button {
             position: absolute;
             top: 50%;
@@ -333,18 +336,108 @@
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent-blue), #2561e5);
+            background: linear-gradient(135deg, #ff9d4d, #a64dff);
+            /* Logo colors gradient */
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            box-shadow: 0 0 30px rgba(58, 123, 253, 0.5);
+            box-shadow: 0 0 30px rgba(255, 157, 77, 0.5);
+            /* Orange-tinted glow */
+            animation: playButtonPulse 2.5s infinite ease-in-out;
+            transition: transform 0.3s ease;
+        }
+
+        .play-button::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, #ff9d4d, #a64dff);
+            /* Same gradient */
+            opacity: 0.6;
+            filter: blur(10px);
+            border-radius: 50%;
+            z-index: -1;
+            animation: glowPulse 2.5s infinite ease-in-out;
+        }
+
+        .play-button:hover {
+            transform: translate(-50%, -50%) scale(1.1);
         }
 
         .play-button i {
             font-size: 30px;
             color: white;
             margin-left: 5px;
+        }
+
+        /* Keyframe Animations */
+        @keyframes playButtonPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.25);
+                /* Bigger scale for more dramatic effect */
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        @keyframes glowPulse {
+            0% {
+                opacity: 0.6;
+                filter: blur(10px);
+            }
+
+            50% {
+                opacity: 0.8;
+                filter: blur(20px);
+                /* More blur for stronger glow */
+            }
+
+            100% {
+                opacity: 0.6;
+                filter: blur(10px);
+            }
+        }
+
+        .play-button::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid rgba(255, 157, 77, 0.3);
+            /* Match gradient color */
+            border-radius: 50%;
+            z-index: -2;
+            animation: ringPulse 2.5s infinite ease-in-out;
+        }
+
+        @keyframes ringPulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: scale(1.25);
+                /* Increased from 1.15 */
+                opacity: 0.1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
         }
 
         /* Responsive */
@@ -422,7 +515,7 @@
 
             <div class="video-container">
                 <div class="video-thumbnail" onclick="loadVideo(this)">
-                    <img src="images/video-preview.gif" alt="Video Preview"
+                    <img src="images/thumbnail.png" alt="Video Preview"
                         style="width: 100%; aspect-ratio: 16/9; border-radius: 16px; object-fit: cover;">
                     <div class="play-button">
                         <i class="fas fa-play"></i>
