@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alpha Agents - AI Trading Team</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://www.loom.com">
-    <link rel="preload"
-        href="https://www.loom.com/embed/aea3cabeb10d4af6b6f8a292350d92e7?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
-        as="document">
 
 
     <!-- Primary Meta Tags -->
@@ -18,7 +14,7 @@
         content="Harness the power of advanced AI agents to analyze charts, identify setups, and validate your trading decisions with confidence.">
 
     <!-- Favicon -->
-    <link rel="icon" href="/images/favicon.ico">
+    <link rel="icon" href="/images/favicon-aa.png">
     <link rel="apple-touch-icon" href="/images/favicon-aa.png">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -551,7 +547,6 @@
                 decisions with confidence.
             </p>
 
-
             <div class="form-container">
                 <form id="signup-form">
                     <h3>Create Your Login</h3>
@@ -560,7 +555,7 @@
                     </div>
                     <div class="form-group">
                         <input type="email" name="email" placeholder="Your Email" required
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Please enter a valid email address">
+                            title="Please enter a valid email address">
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" id="password" placeholder="Create Password" required
@@ -595,6 +590,14 @@
     </footer>
 
     <script>
+
+        // Extract UTM parameters immediately when script loads
+        const urlParams = new URLSearchParams(window.location.search);
+        const utmSource = urlParams.get('utm_source') || 'organic';
+
+        // Debug output - remove in production
+        console.log('UTM Source detected:', utmSource);
+        console.log('Full URL:', window.location.href);
 
         document.getElementById('signup-form').addEventListener('submit', function (e) {
             e.preventDefault();
@@ -634,9 +637,6 @@
             const originalButtonText = submitButton.innerHTML;
             submitButton.innerHTML = '<div class="btn-top-line">Processing... <i class="fas fa-spinner fa-spin"></i></div>';
             submitButton.disabled = true;
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const utmSource = urlParams.get('utm_source') || 'organic';
 
             // Send data to webhook
             fetch('https://hook.us2.make.com/jr2ahscyf4eqgo99pqr9lrt5udrjc1x5', {
