@@ -162,8 +162,6 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-
-
         .video-container:hover {
             transform: translateY(-5px);
             box-shadow: 0 25px 60px var(--shadow-color);
@@ -439,7 +437,10 @@
 
         .success-message {
             text-align: center;
-            padding: 1.5rem 0;
+            padding: 3rem 2rem;
+            max-width: 100%;
+            width: 750px;
+            margin: 0 auto;
         }
 
         .success-message i {
@@ -455,6 +456,215 @@
 
         .success-message p {
             color: var(--text-secondary);
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            max-width: 100%;
+        }
+
+        .success-message i {
+            font-size: 4rem;
+            color: #4CAF50;
+            margin-bottom: 1.5rem;
+        }
+
+        .success-message h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .success-message p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .next-steps-text {
+            margin-top: 1.5rem;
+            font-weight: 500;
+        }
+
+        .video-embed {
+            width: 100%;
+            margin: 2rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 15, 0.4);
+            border: 1px solid var(--border-color);
+            transform: scale(1.05);
+        }
+
+        .video-embed iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            display: block;
+        }
+
+        .success-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            width: 100%;
+        }
+
+        /* Gradient button - Chrome Extension */
+        .gradient-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1.25rem 1.75rem;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent-blue), #2561e5);
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(58, 123, 253, 0.4);
+            animation: buttonPulse 2.5s infinite ease-in-out;
+            font-size: 1.25rem;
+            border: none;
+        }
+
+        .gradient-button i {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            /* Neutral light color */
+        }
+
+        .gradient-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.2) 50%,
+                    rgba(255, 255, 255, 0) 100%);
+            transition: left 0.8s;
+            opacity: 0;
+        }
+
+        .gradient-button:hover::before {
+            left: 100%;
+            opacity: 1;
+        }
+
+        .gradient-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(58, 123, 253, 0.6);
+        }
+
+
+        /* Gloss button - Discord */
+        .gloss-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1.25rem 1.75rem;
+            border-radius: 10px;
+            background: linear-gradient(145deg, #1a1d35, #080a1a);
+            color: white;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+            font-size: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .gloss-button i {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            /* Neutral light color */
+        }
+
+        .gloss-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    rgba(255, 255, 255, 0) 0%,
+                    rgba(255, 255, 255, 0.1) 50%,
+                    rgba(255, 255, 255, 0) 100%);
+            transition: left 0.8s;
+        }
+
+        .gloss-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(0, 0, 15, 0.6);
+            background: linear-gradient(145deg, #232746, #0d1022);
+        }
+
+        .gloss-button:hover::before {
+            left: 100%;
+        }
+
+        @keyframes buttonPulse {
+            0% {
+                box-shadow: 0 0 15px rgba(58, 123, 253, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 25px rgba(58, 123, 253, 0.6);
+            }
+
+            100% {
+                box-shadow: 0 0 15px rgba(58, 123, 253, 0.4);
+            }
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 2rem 1rem;
+            max-width: 100%;
+        }
+
+        .success-message>i {
+            font-size: 4rem;
+            color: #4CAF50;
+            margin-bottom: 1.5rem;
+        }
+
+        .gradient-button i,
+        .gloss-button i {
+            font-size: 1.4rem;
+            color: white;
+            line-height: 0;
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: -3px;
+            /* Small adjustment to visually center */
+        }
+
+        .btn-top-line,
+        .gradient-button,
+        .gloss-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .success-message h3 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
         }
 
         .form-submit-btn:hover {
@@ -648,21 +858,37 @@
                     name: nameValue,
                     email: emailValue,
                     password: passwordValue,
-                    source: window.location.href,
                     utm_source: utmSource,
                     timestamp: new Date().toISOString()
                 })
             })
                 .then(response => {
                     if (response.ok) {
-                        // Success - show thank you message
+                        // Success - show thank you message with video and buttons
                         document.getElementById('signup-form').innerHTML = `
-                    <div class="success-message">
-                        <i class="fas fa-check-circle"></i>
-                        <h3>Thank You!</h3>
-                        <p>Your information has been submitted successfully. We'll be in touch soon!</p>
-                    </div>
-                `;
+                            <div class="success-message">
+                                <i class="fas fa-check-circle"></i>
+                                <h3>Watch The Video For Access Instructions</h3>
+                                <p>Your information has been submitted successfully. Watch this quick tutorial:</p>
+                                
+                                <div class="video-embed">
+                                    <iframe src="https://www.loom.com/embed/aea3cabeb10d4af6b6f8a292350d92e7?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" 
+                                        frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                                </div>
+                                
+                                <p class="next-steps-text">Continue with these next steps:</p>
+                                
+                                <div class="success-buttons">
+                                    <a href="https://chrome.google.com/webstore/yourextensionlink" class="gradient-button">
+                                        Get Alpha Agents Chrome Extension
+                                    </a>
+                                    
+                                    <a href="https://discord.gg/yourdiscordinvite" class="gloss-button">
+                                        Access The Alpha Agents Discord
+                                    </a>
+                                </div>
+                            </div>
+                        `;
                     } else {
                         throw new Error('Network response was not ok');
                     }
