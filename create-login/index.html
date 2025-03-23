@@ -34,6 +34,7 @@
             'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '1374627590565429');
         fbq('track', 'PageView');
+        fbq('track', 'CompleteRegistration');
     </script>
     <noscript><img height="1" width="1" style="display:none"
             src="https://www.facebook.com/tr?id=1374627590565429&ev=PageView&noscript=1" /></noscript>
@@ -950,16 +951,6 @@
                 this.style.borderColor = '#4CAF50';
             } else {
                 this.style.borderColor = '';
-            }
-        });
-
-    
-        document.addEventListener('DOMContentLoaded', function () {
-            if (typeof fbq === 'function') {
-                // Re-trigger PageView event after page is fully loaded
-                fbq('track', 'PageView');
-                fbq('track', 'CompleteRegistration');
-                console.log('Meta Pixel PageView event triggered manually');
             }
         });
 
