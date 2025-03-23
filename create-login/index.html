@@ -892,6 +892,7 @@
             })
                 .then(response => {
                     if (response.ok) {
+
                         // Success - show thank you message with video and buttons
                         document.getElementById('signup-form').innerHTML = `
                             <div class="success-message">
@@ -951,6 +952,17 @@
                 this.style.borderColor = '';
             }
         });
+
+    
+        document.addEventListener('DOMContentLoaded', function () {
+            if (typeof fbq === 'function') {
+                // Re-trigger PageView event after page is fully loaded
+                fbq('track', 'PageView');
+                fbq('track', 'CompleteRegistration');
+                console.log('Meta Pixel PageView event triggered manually');
+            }
+        });
+
 
     </script>
 
