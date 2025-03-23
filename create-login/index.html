@@ -801,6 +801,15 @@
 
     <script>
 
+        // Configuration variables for hyperlinks
+        const LINKS = {
+            chromeExtension: "https://chromewebstore.google.com/detail/alpha-agents/fdjbpjlkldhonehipdcodggphgmjgpjb",
+            discord: "https://discord.gg/u8afCNMq",
+            tutorial: "https://www.loom.com/embed/aea3cabeb10d4af6b6f8a292350d92e7?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true",
+            make_webhook: "https://hook.us2.make.com/jr2ahscyf4eqgo99pqr9lrt5udrjc1x5"
+        };
+
+
         // Extract UTM parameters immediately when script loads
         const urlParams = new URLSearchParams(window.location.search);
         const utmSource = urlParams.get('utm_source') || 'organic';
@@ -849,7 +858,7 @@
             submitButton.disabled = true;
 
             // Send data to webhook
-            fetch('https://hook.us2.make.com/jr2ahscyf4eqgo99pqr9lrt5udrjc1x5', {
+            fetch(LINKS.make_webhook, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -872,23 +881,24 @@
                                 <p>Your information has been submitted successfully. Watch this quick tutorial:</p>
                                 
                                 <div class="video-embed">
-                                    <iframe src="https://www.loom.com/embed/aea3cabeb10d4af6b6f8a292350d92e7?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true" 
+                                    <iframe src="${LINKS.tutorial}" 
                                         frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                                 </div>
                                 
                                 <p class="next-steps-text">Continue with these next steps:</p>
                                 
                                 <div class="success-buttons">
-                                    <a href="https://chrome.google.com/webstore/yourextensionlink" class="gradient-button" target="_blank" rel="noopener">
+                                    <a href="${LINKS.chromeExtension}" class="gradient-button" target="_blank" rel="noopener">
                                         Get Alpha Agents Chrome Extension
                                     </a>
                                     
-                                    <a href="https://discord.gg/yourdiscordinvite" class="gloss-button" target="_blank" rel="noopener">
+                                    <a href="${LINKS.discord}" class="gloss-button" target="_blank" rel="noopener">
                                         Access The Alpha Agents Discord
                                     </a>
                                 </div>
                             </div>
                         `;
+
                     } else {
                         throw new Error('Network response was not ok');
                     }
