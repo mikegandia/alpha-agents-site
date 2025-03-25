@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Service - Alpha Agents</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Primary Meta Tags -->
+  <meta name="title" content="Alpha Agents - Terms of Service" />
+  <meta name="description" content="Review the Terms of Service for Alpha Agents, your AI-driven trading analysis platform." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/images/favicon-aa.png" />
+  <link rel="apple-touch-icon" href="/images/favicon-aa.png" />
+
+  <style>
+    /* Base Styles */
+    :root {
+      --bg-dark: #080a1a;
+      --bg-card: #11142b;
+      --bg-input: #0c0e22;
+      --border-color: #1e2144;
+      --text-primary: #e2e4ff;
+      --text-secondary: #9597b9;
+      --accent-blue: #3a7bfd;
+      --accent-blue-hover: #2561e5;
+
+      /* Logo accent colors (used subtly) */
+      --orange-accent: #ff9d4d;
+      --purple-accent: #a64dff;
+      --pink-accent: #ff4d9d;
+
+      --shadow-color: rgba(0, 0, 30, 0.6);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image:
+        radial-gradient(circle at 20% 30%, rgba(58, 123, 253, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(58, 123, 253, 0.05) 0%, transparent 60%);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Navigation */
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 2rem 0;
+      z-index: 2;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+    }
+
+    .brand-logo {
+      width: 35px;
+      height: 35px;
+      margin-right: 15px;
+    }
+
+    .brand-name {
+      font-weight: 600;
+      font-size: 1.4rem;
+      color: var(--text-primary);
+    }
+
+    /* Main Content */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: left;
+      padding: 5rem 0 5rem;
+      position: relative;
+    }
+
+    .dots-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 30px 30px;
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .headline {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .subhead {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 650px;
+      margin: 0 auto 2rem;
+      text-align: center;
+    }
+
+    /* Terms Content Styles */
+    .terms-content {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px var(--shadow-color);
+      max-width: 900px;
+      margin: 2rem auto;
+    }
+
+    .terms-content h2 {
+      font-size: 1.75rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-blue);
+    }
+
+    .terms-content h3 {
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-blue);
+    }
+
+    .terms-content p {
+      margin-bottom: 1rem;
+      line-height: 1.8;
+    }
+
+    .terms-content ul {
+      margin: 1rem 0;
+      padding-left: 1.5rem;
+    }
+
+    .terms-content li {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border-color);
+      margin-top: 3rem;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.875rem;
+      transition: color 0.3s;
+      padding: 0 0.75rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--text-primary);
+    }
+
+    @media (max-width: 768px) {
+      .headline {
+        font-size: 3rem;
+      }
+
+      .subhead {
+        font-size: 1.125rem;
+      }
+
+      .terms-content {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dots-bg"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <div class="nav-brand">
+          <div class="brand-logo">
+            <img src="/images/icon128.png" alt="Alpha Agents Logo" width="35" height="35" />
+          </div>
+          <div class="brand-name">Alpha Agents</div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <h1 class="headline">Terms of Service</h1>
+      <p class="subhead">Last Updated: 03/25/25</p>
+
+      <div class="terms-content">
+        <section>
+          <h2>1. INTRODUCTION</h2>
+          <p>
+            Welcome to Alpha Agents ("we," "our," or "us"). We provide an AI-driven trading analysis platform ("the Service")
+            that offers algorithmic insights, chart analysis, and trading signals. By accessing or using our Service, you agree to be
+            bound by these Terms of Service ("Terms"). If you disagree with any part of these Terms, you do not have permission to
+            access the Service.
+          </p>
+        </section>
+
+        <section>
+          <h2>2. SERVICE DESCRIPTION</h2>
+          <p>
+            The Service uses artificial intelligence to analyze trading charts, financial data, and market conditions to generate trading
+            insights, pattern recognition, and potential trading signals. The Service is designed to be informational and educational in nature.
+          </p>
+        </section>
+
+        <section>
+          <h2>3. NO FINANCIAL ADVICE</h2>
+          <p>
+            <strong>IMPORTANT: THE SERVICE DOES NOT PROVIDE PERSONALIZED FINANCIAL ADVICE</strong><br />
+            All content, including AI-generated analysis, recommendations, and signals provided through the Service is for informational
+            and educational purposes only. The Service does not know your financial situation, risk tolerance, or investment objectives.
+            We are not registered investment advisors, broker-dealers, or financial planners. No content on the Service should be construed as
+            financial, investment, legal, or tax advice. You should consult with qualified professionals before making any investment or trading decisions.
+          </p>
+        </section>
+
+        <section>
+          <h2>4. RISK DISCLOSURE</h2>
+          <p>
+            Trading and investing in financial markets involves substantial risk, including the potential loss of your entire investment.
+            Past performance of our AI models, technical indicators, or trading signals is not indicative of future results.
+          </p>
+          <p>
+            The Service uses algorithms and artificial intelligence that:
+          </p>
+          <ul>
+            <li>May contain errors, biases, or inaccuracies</li>
+            <li>Rely on historical data that may not predict future market behavior</li>
+            <li>Can fail to account for unusual market conditions</li>
+            <li>May not consider all relevant factors for trading decisions</li>
+          </ul>
+          <p>
+            No trading system or methodology is guaranteed to produce profits. You acknowledge and accept these risks when using the Service.
+            We do not guarantee the accuracy, reliability, or performance of any trading signals or analyses. All trading decisions made based on
+            Platform information are at your own risk. Market data provided by the Platform may be delayed, incomplete, or contain errors.
+            Alpha Agents is not liable for any errors or inaccuracies in the provided data.
+          </p>
+        </section>
+
+        <section>
+          <h2>5. USER REGISTRATION</h2>
+          <p>
+            To access certain features of the Service, you must register for an account. You agree to provide accurate, current, and complete
+            information during registration and to update such information to keep it accurate, current, and complete. You are responsible for
+            safeguarding your password and for all activities that occur under your account. You agree to notify us immediately of any unauthorized
+            use of your account. We reserve the right to refuse service, terminate accounts, or remove content at our sole discretion.
+          </p>
+        </section>
+
+        <section>
+          <h2>6. USER RESPONSIBILITIES</h2>
+          <p>
+            When using the Service, you agree to:
+          </p>
+          <ul>
+            <li>Use the Service for lawful purposes only</li>
+            <li>Not rely solely on the Service for trading decisions</li>
+            <li>Conduct your own research before executing any trades</li>
+            <li>Not distribute, share, or resell access to the Service</li>
+            <li>Not attempt to reverse-engineer the Service's algorithms</li>
+            <li>Not use automated methods to access or use the Service without our permission</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>7. SUBSCRIPTION AND PAYMENT</h2>
+          <p><strong>7.1 Pricing</strong><br />We reserve the right to change the pricing of our Service with proper notice.</p>
+          <p>
+            <strong>7.2 Billing</strong><br />We bill in advance for subscription services. You authorize us to charge your payment method for all fees incurred.
+          </p>
+          <p>
+            <strong>7.3 Refunds</strong><br />Due to the nature of digital products, all sales are final unless otherwise required by law.
+            No refunds will be issued for partial subscription periods.
+          </p>
+          <p>
+            <strong>7.4 Cancellation</strong><br />You may cancel your subscription at any time through your account settings. Upon cancellation,
+            your subscription will remain active until the end of your current billing period.
+          </p>
+        </section>
+
+        <section>
+          <h2>8. BETA TESTING STATUS</h2>
+          <p>
+            If you are using a beta version of the Service, please note that:
+          </p>
+          <ul>
+            <li>The Service may contain errors or inaccuracies</li>
+            <li>We may change or discontinue the Service without notice</li>
+            <li>Features may be limited or restricted</li>
+            <li>We may collect additional feedback and usage data</li>
+            <li>Beta-specific terms may apply and will be communicated separately</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>9. INTELLECTUAL PROPERTY</h2>
+          <p>
+            All content, features, and functionality of the Service, including but not limited to text, graphics, logos, icons, images,
+            audio clips, digital downloads, data compilations, software, and algorithms, are our property or the property of our licensors
+            and are protected by copyright, trademark, and other intellectual property laws. You may not copy, modify, create derivative works,
+            reverse engineer, decompile, or otherwise attempt to extract the source code of the Service.
+          </p>
+        </section>
+
+        <section>
+          <h2>10. LIMITATION OF LIABILITY</h2>
+          <p>
+            TO THE MAXIMUM EXTENT PERMITTED BY LAW, Alpha Agents AND ITS OFFICERS, DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR ANY INDIRECT,
+            INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING WITHOUT LIMITATION, LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE
+            LOSSES, RESULTING FROM:
+          </p>
+          <ul>
+            <li>(A) YOUR ACCESS TO OR USE OF OR INABILITY TO ACCESS OR USE THE SERVICE;</li>
+            <li>(B) ANY TRADING OR INVESTMENT DECISIONS MADE BASED ON THE SERVICE;</li>
+            <li>(C) ANY ERRORS OR INACCURACIES IN THE SERVICE'S CONTENT OR FUNCTIONALITY;</li>
+            <li>(D) ANY CONDUCT OR CONTENT OF ANY THIRD PARTY ON THE SERVICE.</li>
+          </ul>
+          <p>
+            IN NO EVENT SHALL OUR TOTAL LIABILITY TO YOU FOR ALL CLAIMS EXCEED THE AMOUNT PAID BY YOU TO US DURING THE PAST 12 MONTHS.
+          </p>
+        </section>
+
+        <section>
+          <h2>11. DISCLAIMER OF WARRANTIES</h2>
+          <p>
+            THE SERVICE AND ITS CONTENT ARE PROVIDED ON AN "AS IS" AND "AS AVAILABLE" BASIS WITHOUT ANY WARRANTIES OF ANY KIND.
+            WE DISCLAIM ALL WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE WARRANTY OF TITLE, MERCHANTABILITY, NON-INFRINGEMENT OF THIRD PARTIES' RIGHTS,
+            AND FITNESS FOR A PARTICULAR PURPOSE. WE DO NOT WARRANT THAT THE SERVICE WILL FUNCTION UNINTERRUPTED, SECURE OR AVAILABLE AT ANY PARTICULAR TIME OR LOCATION,
+            OR THAT ANY ERRORS OR DEFECTS WILL BE CORRECTED.
+          </p>
+        </section>
+
+        <section>
+          <h2>12. INDEMNIFICATION</h2>
+          <p>
+            You agree to defend, indemnify, and hold harmless Alpha Agents, its officers, directors, employees, and agents, from and against any claims,
+            liabilities, damages, losses, and expenses, including, without limitation, reasonable legal and accounting fees, arising out of or in any way
+            connected with your access to or use of the Service or your violation of these Terms.
+          </p>
+        </section>
+
+        <section>
+          <h2>13. DISPUTE RESOLUTION</h2>
+          <p>
+            <strong>13.1 Governing Law</strong><br />These Terms shall be governed by and construed in accordance with the laws of the State of Florida,
+            without regard to its conflict of law provisions.
+          </p>
+          <p>
+            <strong>13.2 Arbitration</strong><br />Any dispute arising from or relating to these Terms or the Service shall be finally settled by binding arbitration,
+            under the rules of the American Arbitration Association (AAA) by one or more arbitrators appointed in accordance with said rules.
+          </p>
+          <p>
+            <strong>13.3 Class Action Waiver</strong><br />Any proceedings to resolve disputes will be conducted on an individual basis.
+            You agree that you may not bring claims as a plaintiff or class member in any purported class or representative proceeding.
+          </p>
+        </section>
+
+        <section>
+          <h2>14. MODIFICATIONS TO TERMS</h2>
+          <p>
+            We reserve the right, at our sole discretion, to modify or replace these Terms at any time.
+            We will provide notice of any material changes by posting the new Terms on the Service and updating the "Last Updated" date.
+            Your continued use of the Service after any such changes constitutes your acceptance of the new Terms.
+          </p>
+        </section>
+
+        <section>
+          <h2>15. TERMINATION</h2>
+          <p>
+            We may terminate or suspend your account and access to the Service immediately, without prior notice or liability, for any reason,
+            including without limitation if you breach the Terms.
+          </p>
+        </section>
+
+        <section>
+          <h2>16. CONTACT INFORMATION</h2>
+          <p>
+            If you have any questions about these Terms, please contact us at: 0dte.profittaker@gmail.com
+          </p>
+          <p>
+            BY USING THE SERVICE, YOU ACKNOWLEDGE THAT YOU HAVE READ THESE TERMS OF SERVICE, UNDERSTAND THEM, AND AGREE TO BE BOUND BY THEM.
+            IF YOU DO NOT AGREE TO THESE TERMS OF SERVICE, YOU MAY NOT ACCESS OR USE THE SERVICE.
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="/privacy-policy">Privacy Policy</a>
+          <a href="/terms-of-service">Terms of Service</a>
+          <a href="#">© 2025 Alpha Agents</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
