@@ -403,6 +403,84 @@
             color: var(--text-secondary);
         }
 
+        /* Checkbox styling */
+        .checkbox-group {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-left: 35px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            user-select: none;
+        }
+
+        .checkbox-container a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+
+        .checkbox-container a:hover {
+            text-decoration: underline;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 24px;
+            width: 24px;
+            background-color: var(--bg-input);
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(58, 123, 253, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-container:hover input~.checkmark {
+            border-color: var(--accent-blue);
+        }
+
+        .checkbox-container input:checked~.checkmark {
+            background-color: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked~.checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 9px;
+            top: 4px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
         .form-submit-btn {
             width: 100%;
             background: linear-gradient(135deg, var(--accent-blue), #2561e5);
@@ -794,6 +872,15 @@
                         <input type="password" name="confirm_password" id="confirm_password"
                             placeholder="Confirm Password" required minlength="8">
                     </div>
+
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" name="terms" id="terms" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="/terms-of-service" target="_blank"> Terms of Service</a>
+                        </label>
+                    </div>
+
                     <button type="submit" class="form-submit-btn">
                         <div class="btn-top-line">
                             Access Your Free Trial Now <i class="fas fa-arrow-right"></i>
@@ -845,6 +932,7 @@
             const emailInput = this.querySelector('input[type="email"]');
             const passwordInput = this.querySelector('input[name="password"]');
             const confirmPasswordInput = this.querySelector('input[name="confirm_password"]');
+            const termsCheckbox = this.querySelector('input[name="terms"]');
 
             const nameValue = nameInput.value;
             const emailValue = emailInput.value;
@@ -869,6 +957,18 @@
                 return;
             } else {
                 confirmPasswordInput.setCustomValidity('');
+            }
+
+            // Terms validation
+            if (!termsCheckbox.checked) {
+                termsCheckbox.setCustomValidity('You must accept the Terms of Service');
+                termsCheckbox.reportValidity();
+                // Add red outline effect
+                document.querySelector('.checkmark').style.borderColor = '#ff3860';
+                document.querySelector('.checkmark').style.boxShadow = '0 0 5px rgba(255, 56, 96, 0.5)';
+                return;
+            } else {
+                termsCheckbox.setCustomValidity('');
             }
 
             // Show loading state
@@ -941,6 +1041,16 @@
         document.querySelector('input[name="confirm_password"]').addEventListener('input', function () {
             this.setCustomValidity('');
         });
+
+        document.querySelector('input[name="terms"]').addEventListener('change', function () {
+            this.setCustomValidity('');
+            // Reset the styling when checkbox is changed
+            document.querySelector('.checkmark').style.borderColor = this.checked ?
+                'var(--accent-blue)' : 'var(--border-color)';
+            document.querySelector('.checkmark').style.boxShadow = this.checked ?
+                '0 0 5px rgba(58, 123, 253, 0.3)' : '0 0 5px rgba(58, 123, 253, 0.1)';
+        });
+
 
         // Add visual feedback for password match
         document.querySelector('input[name="confirm_password"]').addEventListener('keyup', function () {
