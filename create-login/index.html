@@ -420,11 +420,17 @@
             user-select: none;
         }
 
+        .terms-text {
+            line-height: 1.5;
+            display: inline-block;
+            padding-top: 2px;
+            padding-left: 5px;
+        }
+
         .checkbox-container a {
             color: var(--accent-blue);
             text-decoration: none;
             margin-left: 4px;
-            margin-right: 4px;
         }
 
         .checkbox-container a:hover {
@@ -877,7 +883,10 @@
                         <label class="checkbox-container">
                             <input type="checkbox" name="terms" id="terms" required>
                             <span class="checkmark"></span>
-                            I agree to the <a href="/terms-of-service" target="_blank"> Terms of Service</a>
+                            <span class="terms-text">
+                                I agree to the <a href="/terms-of-service" target="_blank">Terms of Service</a><br>
+                                I understand this is not financial advice.
+                            </span>
                         </label>
                     </div>
 
