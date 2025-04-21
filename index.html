@@ -6,17 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Alpha Agents - AI Trading Team</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://www.loom.com">
-    <link rel="prefetch"
-        href="https://www.loom.com/embed/fe21e0e3dd2a467887303db409b1bbbe?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
-        crossorigin>
+
+    <!-- VTurb Optimization Headers START -->
+    <link rel="preload"
+        href="https://scripts.converteai.net/3037aeb1-a5c7-4189-afe5-a9cad99d006b/players/68064a1fc8ddebb9c26ca930/player.js"
+        as="script">
+    <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer/v1/smartplayer.min.js" as="script">
+    <link rel="preload"
+        href="https://images.converteai.net/3037aeb1-a5c7-4189-afe5-a9cad99d006b/players/68064a1fc8ddebb9c26ca930/thumbnail.jpg"
+        as="image">
+    <link rel="preload"
+        href="https://cdn.converteai.net/3037aeb1-a5c7-4189-afe5-a9cad99d006b/680649f84296dc2ba012a1bf/main.m3u8"
+        as="fetch">
+    <link rel="dns-prefetch" href="https://cdn.converteai.net">
+    <link rel="dns-prefetch" href="https://scripts.converteai.net">
+    <link rel="dns-prefetch" href="https://images.converteai.net">
+    <link rel="dns-prefetch" href="https://api.vturb.com.br">
+    <!-- VTurb Optimization Headers END -->
+
 
     <!-- Meta Pixel Code -->
     <script>
         !function (f, b, e, v, n, t, s) {
             if (f.fbq) return; n = f.fbq = function () {
                 n.callMethod ?
-                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
             };
             if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
             n.queue = []; t = b.createElement(e); t.async = !0;
@@ -546,12 +560,18 @@
                         <i class="fas fa-play"></i>
                     </div>
                 </div>
+
+
                 <div class="video-frame" style="display: none;">
-                    <iframe
-                        data-src="https://www.loom.com/embed/fe21e0e3dd2a467887303db409b1bbbe?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true"
-                        frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen
-                        style="width: 100%; aspect-ratio: 16/9; border-radius: 16px;"></iframe>
+                    <div id="vid_68064a1fc8ddebb9c26ca930" style="position:relative;width:100%;padding: 56.25% 0 0;">
+                    </div>
+                    <script
+                        src="https://scripts.converteai.net/3037aeb1-a5c7-4189-afe5-a9cad99d006b/players/68064a1fc8ddebb9c26ca930/player.js"
+                        async id="scr_68064a1fc8ddebb9c26ca930"></script>
                 </div>
+
+
+
             </div>
 
             <a href="https://buy.stripe.com/28o5mo0SI0BV6E8bII?utm_source=stripe" class="cta-btn">
@@ -578,12 +598,10 @@
             const container = element.parentNode;
             const thumbnailEl = container.querySelector('.video-thumbnail');
             const frameEl = container.querySelector('.video-frame');
-            const iframe = frameEl.querySelector('iframe');
+            // const iframe = frameEl.querySelector('iframe'); // No longer needed
+            // iframe.src = iframe.getAttribute('data-src'); // No longer needed
 
-            // Set the actual src from the data-src attribute
-            iframe.src = iframe.getAttribute('data-src');
-
-            // Hide thumbnail, show video
+            // Hide thumbnail, show video frame (VTurb script will load automatically)
             thumbnailEl.style.display = 'none';
             frameEl.style.display = 'block';
         }
