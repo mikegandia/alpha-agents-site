@@ -65,6 +65,15 @@
             --shadow-color: rgba(0, 0, 30, 0.6);
         }
 
+        .accent-text {
+            color: var(--accent-blue);
+            /* Use the existing blue accent variable */
+        }
+
+        .subhead span {
+            color: var(--accent-blue);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -153,13 +162,16 @@
             z-index: 0;
         }
 
+
         .headline {
             font-size: 4rem;
             font-weight: 700;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.75rem;
+            margin-top: 0;
             letter-spacing: -0.025em;
             line-height: 1.2;
         }
+
 
         .headline span {
             color: var(--accent-blue);
@@ -169,7 +181,8 @@
             font-size: 1.25rem;
             color: var(--text-secondary);
             max-width: 650px;
-            margin: 0 auto 2rem;
+            margin: 0 auto 0.0rem;
+            font-weight: 600;
         }
 
         /* Video Placeholder */
@@ -544,23 +557,14 @@
 
     <main>
         <div class="container">
-            <h1 class="headline">
+            <p class="subhead"> <!-- Now acting as the prehead -->
                 Alpha Agents: <span>Your AI Trading Team</span>
-            </h1>
-            <p class="subhead">
-                Harness the power of advanced AI agents to analyze charts, identify setups, and validate your trading
-                decisions with confidence.
             </p>
+            <h1 class="headline"> <!-- The main headline -->
+                How To Trade With AI Agents
+            </h1>
 
             <div class="video-container">
-                <!-- <div class="video-thumbnail" onclick="loadVideo(this)">
-                    <img src="images/thumbnail.png" alt="Video Preview"
-                        style="width: 100%; aspect-ratio: 16/9; border-radius: 16px; object-fit: cover;">
-                    <div class="play-button">
-                        <i class="fas fa-play"></i>
-                    </div>
-                </div> -->
-
 
                 <div class="video-frame">
                     <div id="vid_68064a1fc8ddebb9c26ca930" style="position:relative;width:100%;padding: 56.25% 0 0;">
