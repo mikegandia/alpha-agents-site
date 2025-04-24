@@ -952,13 +952,14 @@
             const passwordInput = this.querySelector('input[name="password"]');
             const confirmPasswordInput = this.querySelector('input[name="confirm_password"]');
             const termsCheckbox = this.querySelector('input[name="terms"]');
+            const referralSource = this.querySelector('input[name="referral_source"]').value;
      
 
             const nameValue = nameInput.value;
             const emailValue = emailInput.value;
             const passwordValue = passwordInput.value;
             const confirmPasswordValue = confirmPasswordInput.value;
-            const referralSourceValue = this.querySelector('input[name="referral_source"]').value;
+            const referralSourceValue = referralSource.value;
 
 
             // Basic email validation
