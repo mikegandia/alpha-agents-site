@@ -880,15 +880,10 @@
                     </div>
 
                     <div class="form-group">
-                        <input
-                          type="text"
-                          name="referral_source"
-                          id="referral_source"
-                          placeholder="How did you hear about us?"
-                          required
-                        />
+                        <input type="text" name="referral_source" id="referral_source"
+                            placeholder="How did you hear about us?" required />
                     </div>
-                
+
                     <div class="form-group checkbox-group">
                         <label class="checkbox-container">
                             <input type="checkbox" name="terms" id="terms" required>
@@ -953,7 +948,7 @@
             const confirmPasswordInput = this.querySelector('input[name="confirm_password"]');
             const termsCheckbox = this.querySelector('input[name="terms"]');
             const referralSource = this.querySelector('input[name="referral_source"]').value;
-     
+
 
             const nameValue = nameInput.value;
             const emailValue = emailInput.value;
@@ -1010,7 +1005,7 @@
                     name: nameValue,
                     email: emailValue,
                     password: passwordValue,
-                    referral_source: referralSourceValue, 
+                    referral_source: referralSourceValue,
                     utm_source: utmSource,
                     timestamp: new Date().toISOString()
                 })
@@ -1031,7 +1026,14 @@
                                 </div>
                                 
                                 <p class="next-steps-text">Continue with these next steps:</p>
-                                
+
+                                <p style="margin-bottom:1rem; font-size:0.9rem; color:var(--text-secondary);">
+                                    IF YOU NEED HELP EMAIL ME HERE: 
+                                    <a href="mailto:mike@alphaagents.ai" style="color:var(--accent-blue);">
+                                        mike@alphaagents.ai
+                                    </a>
+                                </p>
+                                                            
                                 <div class="success-buttons">
                                     <a href="${LINKS.chromeExtension}" class="gradient-button" target="_blank" rel="noopener">
                                         Get Alpha Agents Chrome Extension
