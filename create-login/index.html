@@ -1013,38 +1013,8 @@
                 .then(response => {
                     if (response.ok) {
 
-                        // Success - show thank you message with video and buttons
-                        document.getElementById('signup-form').innerHTML = `
-                            <div class="success-message">
-                                <i class="fas fa-check-circle"></i>
-                                <h3>Watch The Video For Access Instructions</h3>
-                                <p>Your information has been submitted successfully. Watch this quick tutorial:</p>
-                                
-                                <div class="video-embed">
-                                    <iframe src="${LINKS.tutorial}" 
-                                        frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-                                </div>
-                                
-                                <p class="next-steps-text">Continue with these next steps:</p>
-
-                                <p style="margin-bottom:1rem; font-size:0.9rem; color:var(--text-secondary);">
-                                    IF YOU NEED HELP EMAIL ME HERE: 
-                                    <a href="mailto:mike@alphaagents.ai" style="color:var(--accent-blue);">
-                                        mike@alphaagents.ai
-                                    </a>
-                                </p>
-                                                            
-                                <div class="success-buttons">
-                                    <a href="${LINKS.chromeExtension}" class="gradient-button" target="_blank" rel="noopener">
-                                        Get Alpha Agents Chrome Extension
-                                    </a>
-                                    
-                                    <a href="${LINKS.discord}" class="gloss-button" target="_blank" rel="noopener">
-                                        Access The Alpha Agents Discord
-                                    </a>
-                                </div>
-                            </div>
-                        `;
+                        // redirect straight to Loom video
+                        window.location.href = 'https://www.loom.com/share/a8d784e19d8f4a95889b2438f1219ca2?sid=0c5bdb10-8813-4f2e-8df2-08b028a94021';
 
                     } else {
                         throw new Error('Network response was not ok');
