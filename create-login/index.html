@@ -879,6 +879,11 @@
                             placeholder="Confirm Password" required minlength="8">
                     </div>
 
+                    <div class="form-group">
+                        <input type="text" name="referral_source" id="referral_source"
+                            placeholder="How did you hear about us?" required />
+                    </div>
+
                     <div class="form-group checkbox-group">
                         <label class="checkbox-container">
                             <input type="checkbox" name="terms" id="terms" required>
@@ -937,16 +942,14 @@
         document.getElementById('signup-form').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const nameInput = this.querySelector('input[name="name"]');
-            const emailInput = this.querySelector('input[type="email"]');
-            const passwordInput = this.querySelector('input[name="password"]');
-            const confirmPasswordInput = this.querySelector('input[name="confirm_password"]');
-            const termsCheckbox = this.querySelector('input[name="terms"]');
+            const els = this.elements;
 
-            const nameValue = nameInput.value;
-            const emailValue = emailInput.value;
-            const passwordValue = passwordInput.value;
-            const confirmPasswordValue = confirmPasswordInput.value;
+            const nameValue = els['name'].value;
+            const emailValue = els['email'].value;
+            const passwordValue = els['password'].value;
+            const confirmPasswordValue = els['confirm_password'].value;
+            const referralSourceValue = els['referral_source'].value;
+            const termsChecked = els['terms'].checked;
 
             // Basic email validation
             const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -996,6 +999,7 @@
                     name: nameValue,
                     email: emailValue,
                     password: passwordValue,
+                    referral_source: referralSourceValue,
                     utm_source: utmSource,
                     timestamp: new Date().toISOString()
                 })
