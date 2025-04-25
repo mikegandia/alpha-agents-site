@@ -960,6 +960,9 @@
             // Basic email validation
             const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+
+
+
             if (!emailPattern.test(emailValue)) {
                 emailInput.setCustomValidity('Please enter a valid email address');
                 emailInput.reportValidity();
@@ -987,6 +990,16 @@
                 return;
             } else {
                 termsCheckbox.setCustomValidity('');
+            }
+            
+            if (emailPattern.test(referralSourceValue.trim())) {
+            this.innerHTML = `
+                <div class="success-message">
+                <i class="fas fa-check-circle"></i>
+                <h3>Thank you!</h3>
+                </div>
+            `;
+            return;
             }
 
             // Show loading state
