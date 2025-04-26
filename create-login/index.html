@@ -931,6 +931,10 @@
         };
 
 
+        fetch('https://api.ipify.org?format=json')
+        .then(r => r.json())
+        .then(console.log);
+
         // Extract UTM parameters immediately when script loads
         const urlParams = new URLSearchParams(window.location.search);
         const utmSource = urlParams.get('utm_source') || 'organic';
