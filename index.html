@@ -975,21 +975,17 @@
                             console.log('- Details:', error.details);
                             console.log('- Hint:', error.hint);
                             
-                            // Handle duplicate email error
+                            // Handle duplicate email error - just proceed to thank you page
                             if (error.code === '23505' || error.message?.includes('duplicate')) {
-                                // Re-enable button and show error
-                                mainCtaBtn.disabled = false;
-                                mainCtaBtn.innerHTML = 'Yes, Give Me Access<small>I\'m ready to start trading the new way</small>';
-                                
-                                emailContainer.classList.add('error');
-                                emailInput.focus();
-                                
-                                alert('This email is already registered! Please use a different email address.');
-                                
-                                setTimeout(() => {
-                                    emailContainer.classList.remove('error');
-                                }, 2000);
-                                
+                                console.log('🔧 Email already exists, proceeding to thank you page');
+                                setTimeout(function() {
+                                    try {
+                                        window.location.href = './thank-you/';
+                                    } catch (error) {
+                                        console.error('Redirect error:', error);
+                                        window.location = './thank-you/';
+                                    }
+                                }, 200);
                                 return;
                             }
                             
