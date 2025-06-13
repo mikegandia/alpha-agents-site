@@ -59,38 +59,90 @@
     </script>
 
     <!-- Supabase Integration -->
-    <script type="module">
-        // Import Supabase client from CDN
-        import { createClient } from 'https://cdn.skypack.dev/@supabase/supabase-js@2';
-
-        // Supabase configuration
-        const supabaseUrl = 'https://ihxsnilmmzimzknnpbcc.supabase.co';
-        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloeHNuaWxtbXppbXprbm5wYmNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkxNTkxNzUsImV4cCI6MjA2NDczNTE3NX0.vU07uT1FW-A7mO0RW7t2tpc1EUua7zORU9B-Cp46_F4';
-
-        // Initialize Supabase client
-        const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-        // Function to insert email signup
-        async function insertBetaSignup(email) {
-            const { data, error } = await supabase
-                .from('beta_signups')
-                .insert([
-                    { 
-                        name: 'Website Signup', // Using a default name since we only collect email
-                        email: email 
-                    }
-                ])
-                .select();
-
-            if (error) {
-                throw error;
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    <script>
+        console.log('🔧 Loading Supabase module...');
+        
+        // Wait for DOM and Supabase to be ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🔧 DOM loaded, checking for Supabase...');
+            
+            // Check if Supabase is available globally
+            if (typeof supabase === 'undefined') {
+                console.error('❌ Supabase global object not found');
+                return;
             }
+            
+            try {
+                console.log('✅ Supabase library loaded successfully');
 
-            return data[0];
-        }
+                // Supabase configuration
+                const supabaseUrl = 'https://ihxsnilmmzimzknnpbcc.supabase.co';
+                const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloeHNuaWxtbXppbXprbm5wYmNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkxNTkxNzUsImV4cCI6MjA2NDczNTE3NX0.vU07uT1FW-A7mO0RW7t2tpc1EUua7zORU9B-Cp46_F4';
 
-        // Make function available globally
-        window.insertBetaSignup = insertBetaSignup;
+                console.log('🔧 Initializing Supabase client...');
+                console.log('URL:', supabaseUrl);
+                console.log('Key (first 20 chars):', supabaseAnonKey.substring(0, 20) + '...');
+
+                // Initialize Supabase client using global createClient
+                const { createClient } = supabase;
+                const supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+                console.log('✅ Supabase client initialized');
+
+                // Test connection
+                console.log('🔧 Testing Supabase connection...');
+                supabaseClient
+                    .from('beta_signups')
+                    .select('count', { count: 'exact', head: true })
+                    .then(({ data: testData, error: testError }) => {
+                        if (testError) {
+                            console.error('❌ Supabase connection test failed:', testError);
+                        } else {
+                            console.log('✅ Supabase connection test successful');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('❌ Connection test error:', error);
+                    });
+
+                // Function to insert email signup
+                function insertBetaSignup(email) {
+                    console.log('🔧 Attempting to insert email:', email);
+                    
+                    const insertData = { 
+                        name: 'Website Signup',
+                        email: email 
+                    };
+                    
+                    console.log('🔧 Insert data:', insertData);
+
+                    return supabaseClient
+                        .from('beta_signups')
+                        .insert([insertData])
+                        .select()
+                        .then(({ data, error }) => {
+                            console.log('🔧 Supabase response - Data:', data);
+                            console.log('🔧 Supabase response - Error:', error);
+
+                            if (error) {
+                                console.error('❌ Supabase insert error:', error);
+                                throw error;
+                            }
+
+                            console.log('✅ Email inserted successfully:', data[0]);
+                            return data[0];
+                        });
+                }
+
+                // Make function available globally
+                window.insertBetaSignup = insertBetaSignup;
+                console.log('✅ insertBetaSignup function available globally');
+            
+            } catch (error) {
+                console.error('❌ Failed to load Supabase:', error);
+                window.supabaseError = error;
+            }
+        }); // Close DOMContentLoaded event listener
     </script>
 
     <style>
@@ -823,7 +875,7 @@
                 return;
             }
             
-            mainCtaBtn.addEventListener('click', async function(e) {
+            mainCtaBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
             const emailInput = document.getElementById('email-input');
@@ -861,46 +913,87 @@
             
             // Save to Supabase
             try {
+                console.log('🔧 Checking if Supabase function is available...');
+                console.log('window.insertBetaSignup:', window.insertBetaSignup);
+                console.log('window.supabaseError:', window.supabaseError);
+                
+                if (window.supabaseError) {
+                    console.error('❌ Supabase failed to load:', window.supabaseError);
+                    throw new Error('Supabase initialization failed');
+                }
+                
                 if (window.insertBetaSignup) {
-                    await window.insertBetaSignup(emailValue);
-                    console.log('Email saved to Supabase successfully');
+                    console.log('🔧 Calling insertBetaSignup with email:', emailValue);
+                    window.insertBetaSignup(emailValue)
+                        .then(result => {
+                            console.log('✅ Email saved to Supabase successfully:', result);
+                            // Proceed with redirect after successful save
+                            setTimeout(function() {
+                                try {
+                                    window.location.href = './thank-you/';
+                                } catch (error) {
+                                    console.error('Redirect error:', error);
+                                    window.location = './thank-you/';
+                                }
+                            }, 200);
+                        })
+                        .catch(error => {
+                            console.error('❌ Supabase operation failed:', error);
+                            console.log('Error details:');
+                            console.log('- Message:', error.message);
+                            console.log('- Code:', error.code);
+                            console.log('- Details:', error.details);
+                            console.log('- Hint:', error.hint);
+                            
+                            // Handle duplicate email error
+                            if (error.code === '23505' || error.message?.includes('duplicate')) {
+                                // Re-enable button and show error
+                                mainCtaBtn.disabled = false;
+                                mainCtaBtn.innerHTML = 'Yes, Give Me Access<small>I\'m ready to start trading the new way</small>';
+                                
+                                emailContainer.classList.add('error');
+                                emailInput.focus();
+                                
+                                alert('This email is already registered! Please use a different email address.');
+                                
+                                setTimeout(() => {
+                                    emailContainer.classList.remove('error');
+                                }, 2000);
+                                
+                                return;
+                            }
+                            
+                            // For other errors, show error but still allow redirect
+                            alert('There was an issue saving your email, but we\'ll still take you to the next step. Our team will follow up!');
+                            setTimeout(function() {
+                                try {
+                                    window.location.href = './thank-you/';
+                                } catch (error) {
+                                    console.error('Redirect error:', error);
+                                    window.location = './thank-you/';
+                                }
+                            }, 200);
+                        });
+                    return; // Exit early, let the promise handle the rest
                 } else {
-                    console.warn('Supabase not available, proceeding without saving');
+                    console.warn('⚠️ insertBetaSignup function not available');
+                    console.log('Available window properties:', Object.keys(window).filter(key => key.includes('supabase') || key.includes('insert')));
+                    throw new Error('Supabase function not available');
                 }
             } catch (error) {
-                console.error('Supabase error:', error);
+                console.error('❌ Supabase initialization error:', error);
+                alert('There was an issue with the system, but we\'ll still take you to the next step. Our team will follow up!');
                 
-                // Handle duplicate email error
-                if (error.code === '23505') {
-                    // Re-enable button and show error
-                    this.disabled = false;
-                    this.innerHTML = 'Yes, Give Me Access<small>I\'m ready to start trading the new way</small>';
-                    
-                    emailContainer.classList.add('error');
-                    emailInput.focus();
-                    
-                    // Show a more obvious error message
-                    alert('This email is already registered! Please use a different email address.');
-                    
-                    setTimeout(() => {
-                        emailContainer.classList.remove('error');
-                    }, 2000);
-                    
-                    return;
-                }
-                // For other errors, still proceed to thank you page
+                // Fallback redirect if Supabase fails completely
+                setTimeout(function() {
+                    try {
+                        window.location.href = './thank-you/';
+                    } catch (error) {
+                        console.error('Redirect error:', error);
+                        window.location = './thank-you/';
+                    }
+                }, 200);
             }
-            
-            // Small delay to ensure all tracking/saving completes before redirect
-            setTimeout(function() {
-                try {
-                    window.location.href = './thank-you/';
-                } catch (error) {
-                    console.error('Redirect error:', error);
-                    // Fallback redirect
-                    window.location = './thank-you/';
-                }
-            }, 200);
         });
 
             // Clear error state when user starts typing
