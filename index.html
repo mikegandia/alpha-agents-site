@@ -282,7 +282,7 @@
             display: inline-flex;
             flex-direction: column;
             align-items: center;
-            background: linear-gradient(135deg, var(--accent-blue), #2561e5);
+            background: linear-gradient(135deg, #ffc107, #e65100);
             color: white;
             border: none;
             padding: 1.75rem 3.75rem;
@@ -294,8 +294,18 @@
             transition: all 0.2s;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 38px rgba(58, 123, 253, 0.3);
-            /* Slightly larger shadow */
+            box-shadow: 0 10px 38px rgba(255, 152, 0, 0.3);
+            /* Orange-tinted shadow */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+
+        .cta-btn.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            transition: all 0.6s ease-out;
         }
 
         /* Ensure anchor tag buttons maintain styling */
@@ -308,7 +318,7 @@
             font-size: 1.25rem;
             font-weight: 400;
             opacity: 0.9;
-            margin-top: 0.3rem;
+            margin-top: 0.4rem;
         }
 
         .cta-btn::after {
@@ -326,7 +336,8 @@
 
         .cta-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(58, 123, 253, 0.4);
+            box-shadow: 0 12px 40px rgba(255, 152, 0, 0.4);
+            background: linear-gradient(135deg, #ffd54f, #e64a19);
         }
 
         .cta-btn:active {
@@ -561,17 +572,22 @@
                 Alpha Agents: <span>Your AI Trading Team</span>
             </p>
             <h1 class="headline"> <!-- The main headline -->
-                How To Trade With AI Agents
+                How To Trade <span>Without</span> Looking At <span>Charts</span> <u>Using ChatGPT</u>
             </h1>
 
             <div class="video-container">
 
                 <div class="video-frame">
-                    <div id="vid_68064a1fc8ddebb9c26ca930" style="position:relative;width:100%;padding: 56.25% 0 0;">
-                    </div>
-                    <script
-                        src="https://scripts.converteai.net/3037aeb1-a5c7-4189-afe5-a9cad99d006b/players/68064a1fc8ddebb9c26ca930/player.js"
-                        async id="scr_68064a1fc8ddebb9c26ca930"></script>
+                    <div id="vid_684c453e6dee578c40206704" style="position: relative; width: 100%; padding: 100% 0 0;"> 
+                        <img id="thumb_684c453e6dee578c40206704" src="https://images.converteai.net/3037aeb1-a5c7-4189-afe5-a9cad99d006b/players/684c453e6dee578c40206704/thumbnail.jpg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block;" alt="thumbnail"> 
+                        <div id="backdrop_684c453e6dee578c40206704" style=" -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px); position: absolute; top: 0; height: 100%; width: 100%; "></div> 
+                    </div> 
+                    <script type="text/javascript" id="scr_684c453e6dee578c40206704"> 
+                        var s=document.createElement("script"); 
+                        s.src="https://scripts.converteai.net/3037aeb1-a5c7-4189-afe5-a9cad99d006b/players/684c453e6dee578c40206704/player.js"; 
+                        s.async=!0;
+                        document.head.appendChild(s); 
+                    </script>
                 </div>
 
 
@@ -579,8 +595,8 @@
             </div>
 
             <a href="http://alphaagents.ai/create-login/" class="cta-btn">
-                Access Alpha Agents Now
-                <small>Get Your 14 Day Free Trial</small>
+                Yes, Give Me Access
+                <small>I'm ready to start trading the new way</small>
             </a>
         </div>
     </main>
@@ -610,6 +626,13 @@
             frameEl.style.display = 'block';
         }
 
+        // Show button after 3 minutes and 25 seconds (205 seconds)
+        setTimeout(function() {
+            const ctaBtn = document.querySelector('.cta-btn');
+            if (ctaBtn) {
+                ctaBtn.classList.add('show');
+            }
+        }, 205000); // 205 seconds = 3 minutes 25 seconds
 
     </script>
 
