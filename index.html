@@ -45,6 +45,19 @@
             src="https://www.facebook.com/tr?id=1374627590565429&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
 
+    <!-- Additional Meta Pixel Code for email submission -->
+    <script>
+        // Track AddToCart when email is submitted successfully
+        function trackEmailSubmission() {
+            if (typeof fbq !== 'undefined') {
+                fbq('track', 'AddToCart', {
+                    currency: 'USD',
+                    value: 47.00
+                });
+            }
+        }
+    </script>
+
     <style>
         /* Base Styles */
         :root {
@@ -308,6 +321,91 @@
             transition: all 0.6s ease-out;
         }
 
+        /* Email Signup Section */
+        .email-signup-section {
+            width: 100%;
+            max-width: 650px;
+            margin: 3rem auto 2.5rem;
+            text-align: center;
+        }
+
+        .signup-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+
+        .pricing-display {
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .original-price {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            text-decoration: line-through;
+            font-weight: 400;
+        }
+
+        .sale-price {
+            font-size: 1.8rem;
+            color: #4caf50;
+            font-weight: 700;
+        }
+
+        .email-form {
+            width: 100%;
+        }
+
+        .email-input-container {
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-card);
+            border: 1px solid #3a3f66;
+            border-radius: 12px;
+            padding: 0.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 30, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .email-input-container:focus-within {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 2px rgba(58, 123, 253, 0.2), 0 10px 30px rgba(0, 0, 30, 0.3);
+        }
+
+        .email-input-container input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 1rem 1.25rem;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            outline: none;
+        }
+
+        .email-input-container input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .email-input-container.error {
+            border-color: #ff3860;
+            box-shadow: 0 0 0 2px rgba(255, 56, 96, 0.2), 0 10px 30px rgba(0, 0, 30, 0.3);
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+
+
         /* Ensure anchor tag buttons maintain styling */
         a.cta-btn {
             text-decoration: none;
@@ -535,6 +633,33 @@
                 font-size: 0.75rem;
                 /* Slightly smaller subtext */
             }
+
+            /* Mobile email signup adjustments */
+            .signup-title {
+                font-size: 1.5rem;
+            }
+
+            .pricing-display {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .original-price {
+                font-size: 1.25rem;
+            }
+
+            .sale-price {
+                font-size: 1.5rem;
+            }
+
+            .email-input-container {
+                padding: 1rem;
+            }
+
+            .email-input-container input {
+                padding: 0.875rem 1rem;
+                font-size: 1rem;
+            }
         }
 
         /* Extra small devices */
@@ -594,7 +719,21 @@
 
             </div>
 
-            <a href="http://alphaagents.ai/create-login/" class="cta-btn">
+            <!-- Email Signup Section -->
+            <div class="email-signup-section">
+                <h2 class="signup-title">Get Access To The Alpha Agents Trading System Using ChatGPT Now</h2>
+                <div class="pricing-display">
+                    <span class="original-price">$197</span>
+                    <span class="sale-price">Only $47</span>
+                </div>
+                <form id="email-signup-form" class="email-form">
+                    <div class="email-input-container">
+                        <input type="email" name="email" id="email-input" placeholder="Enter your best email here" required>
+                    </div>
+                </form>
+            </div>
+
+            <a href="#" class="cta-btn" id="main-cta-btn">
                 Yes, Give Me Access
                 <small>I'm ready to start trading the new way</small>
             </a>
@@ -626,13 +765,84 @@
             frameEl.style.display = 'block';
         }
 
-        // Show button after 3 minutes and 25 seconds (205 seconds)
-        setTimeout(function() {
-            const ctaBtn = document.querySelector('.cta-btn');
-            if (ctaBtn) {
-                ctaBtn.classList.add('show');
+        // Show button immediately for testing (delay disabled)
+        // setTimeout(function() {
+        //     const ctaBtn = document.querySelector('.cta-btn');
+        //     if (ctaBtn) {
+        //         ctaBtn.classList.add('show');
+        //     }
+        // }, 205000); // 205 seconds = 3 minutes 25 seconds
+
+        // Show button immediately
+        const ctaBtn = document.querySelector('.cta-btn');
+        if (ctaBtn) {
+            ctaBtn.classList.add('show');
+        }
+
+        // Wait for DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle main CTA button click with email validation
+            const mainCtaBtn = document.getElementById('main-cta-btn');
+            if (!mainCtaBtn) {
+                console.error('Main CTA button not found!');
+                return;
             }
-        }, 205000); // 205 seconds = 3 minutes 25 seconds
+            
+            mainCtaBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const emailInput = document.getElementById('email-input');
+            const emailContainer = document.querySelector('.email-input-container');
+            const emailValue = emailInput.value.trim();
+            
+            // Email validation regex
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            
+            // Remove any existing error state
+            emailContainer.classList.remove('error');
+            
+            if (!emailValue || !emailPattern.test(emailValue)) {
+                // Add error state and shake animation
+                emailContainer.classList.add('error');
+                emailInput.focus();
+                
+                // Remove error state after animation
+                setTimeout(() => {
+                    emailContainer.classList.remove('error');
+                }, 500);
+                
+                return false;
+            }
+            
+            // If email is valid, track the event and redirect to thank you page
+            console.log('Redirecting to thank you page with email:', emailValue);
+            
+            // Track AddToCart event
+            trackEmailSubmission();
+            
+            // Small delay to ensure tracking fires before redirect
+            setTimeout(function() {
+                try {
+                    window.location.href = './thank-you/';
+                } catch (error) {
+                    console.error('Redirect error:', error);
+                    // Fallback redirect
+                    window.location = './thank-you/';
+                }
+            }, 100);
+        });
+
+            // Clear error state when user starts typing
+            const emailInput = document.getElementById('email-input');
+            if (emailInput) {
+                emailInput.addEventListener('input', function() {
+                    const emailContainer = document.querySelector('.email-input-container');
+                    emailContainer.classList.remove('error');
+                });
+            }
+        }); // Close DOMContentLoaded event listener
+
+
 
     </script>
 
