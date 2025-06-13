@@ -81,8 +81,6 @@
                 const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloeHNuaWxtbXppbXprbm5wYmNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkxNTkxNzUsImV4cCI6MjA2NDczNTE3NX0.vU07uT1FW-A7mO0RW7t2tpc1EUua7zORU9B-Cp46_F4';
 
                 console.log('🔧 Initializing Supabase client...');
-                console.log('URL:', supabaseUrl);
-                console.log('Key (first 20 chars):', supabaseAnonKey.substring(0, 20) + '...');
 
                 // Initialize Supabase client using global createClient
                 const { createClient } = supabase;
@@ -105,22 +103,41 @@
                         console.error('❌ Connection test error:', error);
                     });
 
+                                // Function to extract UTM parameters from URL
+                function getUtmParameters() {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    return {
+                        utm_source: urlParams.get('utm_source') || null,
+                        utm_medium: urlParams.get('utm_medium') || null,
+                        utm_content: urlParams.get('utm_content') || null
+                    };
+                }
+
                 // Function to insert email signup
                 function insertBetaSignup(email) {
-                    console.log('🔧 Attempting to insert email:', email);
-                    
+                    console.log('🔧 Attempting to insert email signup...');
+
+                    const utmParams = getUtmParameters();
+                    if (utmParams.utm_source || utmParams.utm_medium || utmParams.utm_content) {
+                        console.log('🔧 UTM parameters detected:', utmParams);
+                    } else {
+                        console.log('🔧 No UTM parameters found in URL');
+                    }
+
                     const insertData = { 
                         name: 'Website Signup',
-                        email: email 
+                        email: email,
+                        utm_source: utmParams.utm_source,
+                        utm_medium: utmParams.utm_medium,
+                        utm_content: utmParams.utm_content
                     };
-                    
-                    console.log('🔧 Insert data:', insertData);
 
                     return supabaseClient
                         .from('beta_signups')
                         .insert([insertData])
                         .select()
                         .then(({ data, error }) => {
+                            console.log('🔧 Supabase INSERT attempted with data:', insertData);
                             console.log('🔧 Supabase response - Data:', data);
                             console.log('🔧 Supabase response - Error:', error);
 
@@ -866,6 +883,21 @@
             ctaBtn.classList.add('show');
         }
 
+        // Extract and log UTM parameters on page load
+        const urlParams = new URLSearchParams(window.location.search);
+        const pageUtms = {
+            source: urlParams.get('utm_source'),
+            medium: urlParams.get('utm_medium'),
+            content: urlParams.get('utm_content')
+        };
+        
+        if (pageUtms.source || pageUtms.medium || pageUtms.content) {
+            console.log('📊 UTM parameters detected on page load:', pageUtms);
+        } else {
+            console.log('📊 No UTM parameters found on page load');
+        }
+        console.log('📊 Current URL:', window.location.href);
+
         // Wait for DOM to be fully loaded
         document.addEventListener('DOMContentLoaded', function() {
             // Handle main CTA button click with email validation
@@ -902,7 +934,7 @@
             }
             
             // If email is valid, save to Supabase and redirect
-            console.log('Processing email submission:', emailValue);
+            console.log('🔧 Processing email submission...');
             
             // Disable button and show loading state
             this.disabled = true;
@@ -914,8 +946,6 @@
             // Save to Supabase
             try {
                 console.log('🔧 Checking if Supabase function is available...');
-                console.log('window.insertBetaSignup:', window.insertBetaSignup);
-                console.log('window.supabaseError:', window.supabaseError);
                 
                 if (window.supabaseError) {
                     console.error('❌ Supabase failed to load:', window.supabaseError);
@@ -923,10 +953,10 @@
                 }
                 
                 if (window.insertBetaSignup) {
-                    console.log('🔧 Calling insertBetaSignup with email:', emailValue);
+                    console.log('🔧 Calling insertBetaSignup...');
                     window.insertBetaSignup(emailValue)
                         .then(result => {
-                            console.log('✅ Email saved to Supabase successfully:', result);
+                            console.log('✅ Email saved to Supabase successfully');
                             // Proceed with redirect after successful save
                             setTimeout(function() {
                                 try {
@@ -977,7 +1007,6 @@
                     return; // Exit early, let the promise handle the rest
                 } else {
                     console.warn('⚠️ insertBetaSignup function not available');
-                    console.log('Available window properties:', Object.keys(window).filter(key => key.includes('supabase') || key.includes('insert')));
                     throw new Error('Supabase function not available');
                 }
             } catch (error) {
