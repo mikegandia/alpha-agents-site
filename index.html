@@ -58,6 +58,41 @@
         }
     </script>
 
+    <!-- Supabase Integration -->
+    <script type="module">
+        // Import Supabase client from CDN
+        import { createClient } from 'https://cdn.skypack.dev/@supabase/supabase-js@2';
+
+        // Supabase configuration
+        const supabaseUrl = 'https://ihxsnilmmzimzknnpbcc.supabase.co';
+        const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImloeHNuaWxtbXppbXprbm5wYmNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkxNTkxNzUsImV4cCI6MjA2NDczNTE3NX0.vU07uT1FW-A7mO0RW7t2tpc1EUua7zORU9B-Cp46_F4';
+
+        // Initialize Supabase client
+        const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+        // Function to insert email signup
+        async function insertBetaSignup(email) {
+            const { data, error } = await supabase
+                .from('beta_signups')
+                .insert([
+                    { 
+                        name: 'Website Signup', // Using a default name since we only collect email
+                        email: email 
+                    }
+                ])
+                .select();
+
+            if (error) {
+                throw error;
+            }
+
+            return data[0];
+        }
+
+        // Make function available globally
+        window.insertBetaSignup = insertBetaSignup;
+    </script>
+
     <style>
         /* Base Styles */
         :root {
@@ -788,7 +823,7 @@
                 return;
             }
             
-            mainCtaBtn.addEventListener('click', function(e) {
+            mainCtaBtn.addEventListener('click', async function(e) {
             e.preventDefault();
             
             const emailInput = document.getElementById('email-input');
@@ -814,13 +849,49 @@
                 return false;
             }
             
-            // If email is valid, track the event and redirect to thank you page
-            console.log('Redirecting to thank you page with email:', emailValue);
+            // If email is valid, save to Supabase and redirect
+            console.log('Processing email submission:', emailValue);
+            
+            // Disable button and show loading state
+            this.disabled = true;
+            this.innerHTML = '<div class="btn-top-line">Processing... <i class="fas fa-spinner fa-spin"></i></div><small>Please wait...</small>';
             
             // Track AddToCart event
             trackEmailSubmission();
             
-            // Small delay to ensure tracking fires before redirect
+            // Save to Supabase
+            try {
+                if (window.insertBetaSignup) {
+                    await window.insertBetaSignup(emailValue);
+                    console.log('Email saved to Supabase successfully');
+                } else {
+                    console.warn('Supabase not available, proceeding without saving');
+                }
+            } catch (error) {
+                console.error('Supabase error:', error);
+                
+                // Handle duplicate email error
+                if (error.code === '23505') {
+                    // Re-enable button and show error
+                    this.disabled = false;
+                    this.innerHTML = 'Yes, Give Me Access<small>I\'m ready to start trading the new way</small>';
+                    
+                    emailContainer.classList.add('error');
+                    emailInput.focus();
+                    
+                    // Show a more obvious error message
+                    alert('This email is already registered! Please use a different email address.');
+                    
+                    setTimeout(() => {
+                        emailContainer.classList.remove('error');
+                    }, 2000);
+                    
+                    return;
+                }
+                // For other errors, still proceed to thank you page
+            }
+            
+            // Small delay to ensure all tracking/saving completes before redirect
             setTimeout(function() {
                 try {
                     window.location.href = './thank-you/';
@@ -829,7 +900,7 @@
                     // Fallback redirect
                     window.location = './thank-you/';
                 }
-            }, 100);
+            }, 200);
         });
 
             // Clear error state when user starts typing
@@ -838,6 +909,14 @@
                 emailInput.addEventListener('input', function() {
                     const emailContainer = document.querySelector('.email-input-container');
                     emailContainer.classList.remove('error');
+                });
+
+                // Handle Enter key press on email field
+                emailInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        mainCtaBtn.click(); // Trigger the button click
+                    }
                 });
             }
         }); // Close DOMContentLoaded event listener
