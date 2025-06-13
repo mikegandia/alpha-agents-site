@@ -431,6 +431,16 @@
             max-width: 650px;
             margin: 3rem auto 2.5rem;
             text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.6s ease-out;
+        }
+
+        .email-signup-section.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
 
         .signup-title {
@@ -869,19 +879,21 @@
             frameEl.style.display = 'block';
         }
 
-        // Show button immediately for testing (delay disabled)
-        // setTimeout(function() {
-        //     const ctaBtn = document.querySelector('.cta-btn');
-        //     if (ctaBtn) {
-        //         ctaBtn.classList.add('show');
-        //     }
-        // }, 205000); // 205 seconds = 3 minutes 25 seconds
-
-        // Show button immediately
-        const ctaBtn = document.querySelector('.cta-btn');
-        if (ctaBtn) {
-            ctaBtn.classList.add('show');
-        }
+        // Show email section and button after 3 minutes and 25 seconds (205 seconds)
+        setTimeout(function() {
+            const emailSection = document.querySelector('.email-signup-section');
+            const ctaBtn = document.querySelector('.cta-btn');
+            
+            if (emailSection) {
+                emailSection.classList.add('show');
+                console.log('✅ Email signup section displayed');
+            }
+            
+            if (ctaBtn) {
+                ctaBtn.classList.add('show');
+                console.log('✅ CTA button displayed');
+            }
+        }, 205000); // 205 seconds = 3 minutes 25 seconds
 
         // Extract and log UTM parameters on page load
         const urlParams = new URLSearchParams(window.location.search);
